@@ -16,6 +16,8 @@ def get_version():
     return _version_re.findall(read('psqlconnect.py'))[0]
 
 
+install_requires = read('requirements.txt').split('\n')
+
 setup(
     name='psql-connect',
     version=get_version(),
@@ -23,9 +25,12 @@ setup(
     license='MIT',
     author='Andrew Bentley',
     author_email='andrew@bentley.codes',
-    description="An interface to .pgpass",
+    description="Prompt for one of the databases contained in ~/.pgpass to connect to before launching psql",
     long_description=read('README.rst'),
     py_modules=['psqlconnect'],
     entry_points={'console_scripts': ['psql-connect = psqlconnect:main']},
+    include_package_data=True,
+    zip_safe=False,
     platforms='any',
+    install_requires=install_requires
 )

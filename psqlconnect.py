@@ -32,7 +32,7 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.shortcuts import create_prompt_application, run_application
 
 __author__ = 'Andrew Bentley <andrew@bentley.codes>'
-__version__ = '0.0.1'
+__version__ = '0.0.4'
 
 
 DEFAULT_PGPASS_PATH = os.path.join(os.path.expanduser('~'), '.pgpass')
@@ -98,7 +98,9 @@ class FuzzyCompleter(Completer):
 
 def main():
     pgpass = PgPass.from_file()
-    application = create_prompt_application(message=PROMPT, completer=FuzzyCompleter(pgpass.get_dsns()))
+    application = create_prompt_application(
+        message=PROMPT,
+        completer=FuzzyCompleter(pgpass.get_dsns()))
     application.on_start = lambda cli: cli.start_completion()
     dsn = run_application(application)
 
